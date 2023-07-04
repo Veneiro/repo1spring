@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extrasspringsecurity4">
+<head th:replace="fragments/head"/>
+<body>
+<nav th:replace="fragments/nav"/>
+
+<div class="container">
+    <h2 th:text="#{offers.add.title}"></h2>
+    <form class="form-horizontal" method="post" action="/offer/add"
+          th:object="${offer}">
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="title"
+                   th:text="#{offer.add.offerTitle}"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="title" name="title"
+                       placeholder="Renault Twingo" required="true"
+                       th:value="${offer.title}"/>
+                <span class="text-danger" th:if="${#fields.hasErrors('title')}"
+                      th:errors="*{title}"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="detail"
+                   th:text="#{offer.add.offerDetail}"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="detail"
+                       name="detail"
+                       placeholder="Renault Twingo color rojo con 10.000 Km."
+                       required="true" th:value="${offer.detail}"/>
+                <span class="text-danger" th:if="${#fields.hasErrors('detail')}"
+                      th:errors="*{detail}"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="price"
+                   th:text="#{offer.add.offerPrice}"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="price" name="price"
+                       placeholder="2000" required="true"
+                       th:value="${offer.price}"/>
+                <span class="text-danger" th:if="${#fields.hasErrors('price')}"
+                      th:errors="*{price}"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="checkbox"><span
+                    th:text="#{offer.checkbox.highlight}"></span></label>
+            <div class="col-sm-10">
+                <input type="checkbox" name="checkbox" id="checkbox"
+                       value="checkbox"/>
+                <span class="text-danger" th:if="${#fields.hasErrors('user')}"
+                      th:errors="*{user}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary"
+                        th:text="#{submit}"></button>
+            </div>
+        </div>
+
+    </form>
+
+</div>

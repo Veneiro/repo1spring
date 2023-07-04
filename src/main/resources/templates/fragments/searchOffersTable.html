@@ -1,0 +1,36 @@
+<div class="table-responsive">
+    <table class="table table-hover" th:fragment="tableSearchOffers"
+           id="tableSearchOffers">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{offers.title.message}"></th>
+            <th scope="col" th:text="#{offers.details.message}"></th>
+            <th scope="col" th:text="#{offers.price.message}"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="offer : ${searchOffersList}">
+            <td scope="row" th:text="${offer.title}">Titulo</td>
+            <td scope="row" th:text="${offer.detail}">Detalles</td>
+            <td scope="row" th:text="${offer.price} + ' €'">Precio</td>
+            <td scope="row">
+            <td th:if="${offer.available and user!=offer.user}">
+                <a th:href="${'/offer/buy/' + offer.id}"
+                   th:text="#{offers.buy.message}">
+                    <span>Comprar</span></a>
+            </td>
+            <td th:if="${!offer.available and  user!=offer.user}"
+                th:text="#{offers.sold.message}">
+                <span>Vendido</span>
+            </td>
+            <td th:if="${offer.available and user!=offer.user}"><a
+                    th:href="${'/conversations/add/' + offer.id}"
+                    th:text="#{conversation.open}">Open Conversation</a></td>
+            <td scope="col" th:if="${user==offer.user}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

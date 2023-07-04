@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extrasspringsecurity4">
+<head th:replace="fragments/head"/>
+<body>
+<nav th:replace="fragments/nav"/>
+
+<div class="container">
+    <h2 th:text="#{offers.titleOffers.message}">Ofertas</h2>
+    <form class="form-inline" action="/offer/listSearch">
+        <div class="form-group">
+            <input name="searchText" type="text" class="form-control" size="50"
+                   th:placeholder="#{offers.searchText.button}" id="searchText">
+        </div>
+        <button type="submit" class="btn btn-primary"
+                th:text="#{offers.search.button}" id="searchButton"></button>
+    </form>
+    <div>
+        <p class="text-danger" th:if="${error1}" th:text="#{offer.buy.error1}">
+            No tiene suficiente dinero para comprar la oferta</p>
+        <p class="text-danger" th:if="${error2}" th:text="#{offer.buy.error2}">
+            La oferta ya fue vendida, no está disponible</p>
+        <p class="text-danger" th:if="${error3}" th:text="#{offer.buy.error3}">
+            No puede comprar una oferta que es suya</p>
+    </div>
+    <p th:text="#{offers.user.message}"></p>
+    <button type="button" id="updateButton" class="btn btn-primary"
+            th:text="#{offers.update.button}"></button>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $("#updateButton").click(function () {
+            let numberPage = [[${param.page}]];
+            let urlUpdate = '/offer/listSearch/update';
+            if (numberPage != null) {
+                urlUpdate += "?page=" + numberPage[0];
+            }
+            $("#tableSearchOffers").load(urlUpdate);
+        });
+        /*]]>*/
+    </script>
+    <table class="table table-hover" th:fragment="tableSearchOffers"
+           id="tableSearchOffers" th:replace="fragments/searchOffersTable"/>
+    <footer th:replace="fragments/pagination"/>
+</div>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

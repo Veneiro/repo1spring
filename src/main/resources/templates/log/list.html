@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+<nav th:replace="fragments/nav"/>
+
+<div class="container">
+    <h2 th:text="#{log.title}"></h2>
+    <p th:text="#{log.message}"></p>
+
+    <div class="table-responsive">
+        <form action="/log/list" method="GET"
+              class="d-flex flex-row justify-content-start mb-4 gap-3">
+            <select class="form-select form-select-lg mb-3"
+                    name="type">
+                <option selected value="">---</option>
+                <option value="PET">PET</option>
+                <option value="ALTA">ALTA</option>
+                <option value="LOGIN-EX">LOGIN-EX</option>
+                <option value="LOGIN-ERR">LOGIN-ERR</option>
+                <option value="LOGOUT">LOGOUT</option>
+            </select>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary"
+                       th:value="#{submit}">
+            </div>
+        </form>
+
+
+        <form class="form-horizontal" method="post" action="/log/delete">
+            <table class="table table-hover" th:fragment="tableLogs"
+                   id="tableLogs">
+                <thead>
+                <tr>
+                    <th scope="col" th:text="#{log.type}"></th>
+                    <th scope="col" th:text="#{log.date}"></th>
+                    <th scope="col" th:text="#{log.description}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="log : ${logList}">
+                    <td scope="row" th:text="${log.type}"></td>
+                    <td scope="row" th:text="${log.timestamp}"></td>
+                    <td scope="row" th:text="${log.text}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="submit" id="btEliminar" class="btn btn-primary"><span
+                    th:text="#{users.delete.submit}"></span>
+            </button>
+        </form>
+    </div>
+</div>
+</div>
+
+
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

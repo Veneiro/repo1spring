@@ -1,0 +1,23 @@
+<p th:text="#{users.table.message}"></p>
+<div class="table-responsive">
+    <table class="table table-hover" id="usersTable"
+           xmlns:sec="http://www.thymeleaf.org/thymeleaf-extrasspringsecurity4">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{users.email.message}"></th>
+            <th scope="col" th:text="#{users.name.message}"></th>
+            <th scope="col" th:text="#{users.lastName.message}"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${usersList}">
+            <td scope="row" th:text="${user.email}">email@email.com</td>
+            <td th:text="${user.name}">Miguel Angel</td>
+            <td th:text="${user.lastName}">Rogel</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

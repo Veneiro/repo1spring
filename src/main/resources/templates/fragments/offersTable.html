@@ -1,0 +1,32 @@
+<div class="table-responsive">
+    <table class="table table-hover" th:fragment="offersTable" id="offersTable">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{offers.title.message}"></th>
+            <th scope="col" th:text="#{offers.details.message}"></th>
+            <th scope="col" th:text="#{offers.price.message}"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="offer : ${offersList}">
+            <td scope="row" th:text="${offer.title}">Titulo</td>
+            <td scope="row" th:text="${offer.detail}">Detalles</td>
+            <td scope="row" th:text="${offer.price} + ' €'">Precio</td>
+            <td th:if="${offer.available and user!=offer.user}">
+                <a th:href="${'/offer/buy/' + offer.id}"
+                   th:text="#{offers.buy.message}">
+                    <span>Comprar</span></a>
+            </td>
+            <td scope="row" th:if="${user == offer.user}"><a
+                    th:href="${'/offer/delete/' + offer.id}">eliminar</a></td>
+            <td scope="row" th:if="${user == offer.user && !offer.highlighted}">
+                <a
+                        th:href="${'/offer/highlight/' + offer.id}">destacar</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>

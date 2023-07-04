@@ -1,0 +1,21 @@
+<table class="table table-hover" id="tableConversations">
+    <thead>
+    <tr>
+        <th th:text="#{offer.name}" class="col-md-1"></th>
+        <th th:text="#{offer.conversation.email}" class="col-md-1"></th>
+        <th class="col-md-1"></th>
+        <th class="col-md-1"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="conversation : ${conversationsList}">
+        <td th:text="${conversation.offer.title}">Offer</td>
+        <td th:text="${conversation.offer.user.email}">Email</td>
+        <td><a th:href="${'/conversations/get/add/' + conversation.id}"
+               th:text="#{conversation.open}">Open Conversation</a></td>
+        <td><a class=deleteConversation
+               th:href="${'/conversation/delete/' + conversation.id}"><span
+                th:text="#{conversation.delete}">Eliminar</span></a></td>
+    </tr>
+    </tbody>
+</table>

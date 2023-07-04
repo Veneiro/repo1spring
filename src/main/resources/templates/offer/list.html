@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body>
+<nav th:replace="fragments/nav"/>
+
+<div class="container">
+    <h2 th:text="#{offers.table.message}"></h2>
+    <div>
+        <p class="text-danger" th:if="${error1}"
+           th:text="#{Error.offer.wallet}">No tiene suficiente dinero para
+            destacar la oferta</p>
+        <p class="text-danger" th:if="${error2}"
+           th:text="#{Error.offer.highlight}">La oferta ya está destacada</p>
+    </div>
+    <p th:text="#{offers.user.message}"></p>
+    <button type="button" id="updateButton" class="btn btn-primary"
+            th:text="#{offers.update.button}"></button>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $("#updateButton").click(function () {
+            let numberPage = [[${param.page}]];
+            let urlUpdate = '/offer/list/update';
+            if (numberPage != null) {
+                urlUpdate += "?page=" + numberPage[0];
+            }
+            $("#offersTable").load(urlUpdate);
+        });
+        /*]]>*/
+    </script>
+    <table class="table table-hover" th:fragment="offersTable" id="offersTable"
+           th:replace="fragments/offersTable"/>
+</div>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>
